@@ -1,20 +1,26 @@
-"use client"
-import Image from 'next/image'
-import styles from './page.module.css'
-import Connect from './components/Connect'
+"use client";
+import Image from "next/image";
+import styles from "./page.module.css";
+import Connect from "./components/Connect";
 
 import { InjectedConnector } from "@argent/starknetkit-test/injected";
-import { ArgentMobileConnector } from '@argent/starknetkit-test/argentMobile';
+import { ArgentMobileConnector } from "@argent/starknetkit-test/argentMobile";
 import { WebWalletConnector } from "@argent/starknetkit-test/webwallet";
+import { useState } from "react";
 import { StarknetConfig } from "@starknet-react/core";
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
   const connectors = [
-    new InjectedConnector( { options: { id: "argentX" } } ),
-    new InjectedConnector( { options: { id: "braavos" } } ),
-    // new WebWalletConnector( { url: 'https://web.argent.xyz', } ),
-    // new ArgentMobileConnector(),
-  ]
+    new InjectedConnector({ options: { id: "argentX" } }),
+    new InjectedConnector({ options: { id: "braavos" } }),
+    new WebWalletConnector({ url: "https://web.argent.xyz" }),
+    new ArgentMobileConnector(),
+  ];
 
   return (
     <StarknetConfig connectors={connectors} autoConnect>
@@ -24,8 +30,13 @@ export default function Home() {
             Welcome to&nbsp;
             <code className={styles.code}>Starknetkit template</code>
           </p>
-          <div>
-            <Connect />
+          <div className={styles.connectBtnContainer}>
+            <button onClick={toggleModal} className={styles.connectbtn}>
+              Connect
+            </button>
+            {isModalOpen && (
+              <Connect isModalOpen={isModalOpen} toggleModal={toggleModal} />
+            )}
           </div>
         </div>
 
@@ -50,7 +61,11 @@ export default function Home() {
             <h2>
               StarknetKit <span>-&gt;</span>
             </h2>
-            <p>StarknetKit is built with all kinds of users in mind. Developers, crypto experts, mobile users, and complete newbies will find a way to quickly connect to your dapp. For you? only one line of code.</p>
+            <p>
+              StarknetKit is built with all kinds of users in mind. Developers,
+              crypto experts, mobile users, and complete newbies will find a way
+              to quickly connect to your dapp. For you? only one line of code.
+            </p>
           </a>
 
           <a
@@ -62,7 +77,11 @@ export default function Home() {
             <h2>
               Next.js <span>-&gt;</span>
             </h2>
-            <p>Next.js gives you the best developer experience with all the features you need for production: hybrid static & server rendering, smart bundling, and more. No config needed.</p>
+            <p>
+              Next.js gives you the best developer experience with all the
+              features you need for production: hybrid static & server
+              rendering, smart bundling, and more. No config needed.
+            </p>
           </a>
 
           <a
@@ -74,7 +93,10 @@ export default function Home() {
             <h2>
               Starknet-react <span>-&gt;</span>
             </h2>
-            <p>Starknet React is a collection of React hooks for Starknet. It is inspired by wagmi, powered by starknet.js.</p>
+            <p>
+              Starknet React is a collection of React hooks for Starknet. It is
+              inspired by wagmi, powered by starknet.js.
+            </p>
           </a>
 
           <a
@@ -87,11 +109,12 @@ export default function Home() {
               About <span>-&gt;</span>
             </h2>
             <p>
-              This Starknet Starter Kit was built to provide all you need to take your Starknet dapp from development to production in no time!
+              This Starknet Starter Kit was built to provide all you need to
+              take your Starknet dapp from development to production in no time!
             </p>
           </a>
         </div>
       </main>
     </StarknetConfig>
-  )
+  );
 }
