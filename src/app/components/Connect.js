@@ -6,6 +6,7 @@ import { useAccount, useConnectors } from "@starknet-react/core";
 function Connect({ isModalOpen, toggleModal }) {
   const { connect, connectors, disconnect } = useConnectors();
   const { address, isConnected, account } = useAccount();
+  
   useEffect(() => {
     const closeOnEscapeKey = (e) => {
       if (e.key === "Escape") {

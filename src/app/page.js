@@ -27,7 +27,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.description}>
           <div className={styles.logoContainer}>
-            <img src="/starknetKit-logo-white.svg" alt="starknetKit logo" />
+            <img src="https://starknetkit-website-f0ejy1m72-argentlabs.vercel.app/starknetKit-logo-white.svg" alt="starknetkit logo" />
             <span>Starknetkit</span>
           </div>
           <button onClick={toggleModal} className={styles.connectbtn}>
