@@ -6,30 +6,33 @@
   background: linear-gradient(-45deg, #21396a, #1d0a05, #2a264a, #270c06);
   min-height: 100vh;
 }
+
 .description {
+  margin: 0;
+  padding: 1rem;
+  background-color: rgba(var(--callout-rgb), 0.5);
+  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   position: fixed;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   font-size: 0.85rem;
   font-family: var(--font-mono);
   width: 100%;
   z-index: 2;
 }
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 @media (min-width: 700px) {
   .description {
     position: relative;
     display: flex;
     justify-content: space-between;
-    padding-inline: 10%;
   }
-}
-.description p {
-  margin: 0;
-  padding: 1rem;
-  background-color: rgba(var(--callout-rgb), 0.5);
-  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
-  border-radius: var(--border-radius);
-  text-align: center;
 }
 .connectBtnContainer {
   display: flex;
@@ -41,6 +44,7 @@
   border: none;
   padding: 0.9rem;
   width: 8rem;
+  border-radius: 25px;
 }
 .center {
   display: flex;
@@ -114,7 +118,7 @@
   font-size: 0.9rem;
   line-height: 1.5;
 }
-/* Enable hover only on non-touch devices */
+
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
     background: rgba(var(--card-rgb), 0.1);

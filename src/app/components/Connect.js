@@ -33,7 +33,7 @@ function Connect({ isModalOpen, toggleModal }) {
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
         <div className={styles.modalTopContainer}>
-          <h2>Heading of the modal?</h2>
+          <h2 className={styles.modalHeading}>Choose a wallet</h2>
           <button
             title="Close modal"
             className={styles.closeBtn}

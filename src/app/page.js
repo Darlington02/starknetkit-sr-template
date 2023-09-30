@@ -26,24 +26,22 @@ export default function Home() {
     <StarknetConfig connectors={connectors} autoConnect>
       <main className={styles.main}>
         <div className={styles.description}>
-          <p>
-            Welcome to&nbsp;
-            <code className={styles.code}>Starknetkit template</code>
-          </p>
-          <div className={styles.connectBtnContainer}>
-            <button onClick={toggleModal} className={styles.connectbtn}>
-              Connect
-            </button>
-            {isModalOpen && (
-              <Connect isModalOpen={isModalOpen} toggleModal={toggleModal} />
-            )}
+          <div className={styles.logoContainer}>
+            <img src="/starknetKit-logo-white.svg" alt="starknetKit logo" />
+            <span>Starknetkit</span>
           </div>
+          <button onClick={toggleModal} className={styles.connectbtn}>
+            Connect
+          </button>
+          {isModalOpen && (
+            <Connect isModalOpen={isModalOpen} toggleModal={toggleModal} />
+          )}
         </div>
 
         <div className={styles.center}>
           <Image
             className={styles.logo}
-            src="https://starknetkit-website-hpmttrvnh-argentlabs.vercel.app/SN-Symbol-Gradient.svg"
+            src="https://starknetkit-website-f0ejy1m72-argentlabs.vercel.app/starknetKit-logo-white.svg"
             alt="Starknetkit Logo"
             width={400}
             height={150}
