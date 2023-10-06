@@ -3,9 +3,9 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import Connect from "./components/Connect";
 
-import { InjectedConnector } from "@argent/starknetkit-test/injected";
-import { ArgentMobileConnector } from "@argent/starknetkit-test/argentMobile";
-import { WebWalletConnector } from "@argent/starknetkit-test/webwallet";
+import { InjectedConnector } from "starknetkit/injected";
+import { ArgentMobileConnector } from "starknetkit/argentMobile";
+import { WebWalletConnector } from "starknetkit/webwallet";
 import { useState } from "react";
 import { StarknetConfig } from "@starknet-react/core";
 

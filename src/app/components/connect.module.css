@@ -11,8 +11,8 @@
   height: 100vh;
 }
 .modal {
-  background-color: #0e0303;
-  background-color: rgb(29, 29, 30);
+  background-color: #eeebeb;
+  background-color: rgb(230, 230, 237);
   border-radius: 8px;
   padding: 2rem;
   display: flex;
@@ -47,10 +47,10 @@
   gap: 1rem;
 }
 .modalHeading {
-  color: white;
+  color: black;
 }
 .connectbtn {
-  background-color: #1d0a05;
+  background-color: #0fafdf;
   cursor: pointer;
   border: none;
   border-radius: 8px;
@@ -58,7 +58,7 @@
   width: 100%;
 }
 .connectbtn:hover {
-  background-color: #0fafdf;
+  background-color: #1d0a05;
   transition: all 0.3s;
 }
 @keyframes zoomIn {
