@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import Connect from "./components/Connect";
@@ -6,7 +7,6 @@ import Connect from "./components/Connect";
 import { InjectedConnector } from "starknetkit/injected";
 import { ArgentMobileConnector } from "starknetkit/argentMobile";
 import { WebWalletConnector } from "starknetkit/webwallet";
-import { useState } from "react";
 import { StarknetConfig } from "@starknet-react/core";
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
     new WebWalletConnector({ url: "https://web.argent.xyz" }),
     new ArgentMobileConnector(),
   ];
-
+  
   return (
     <StarknetConfig connectors={connectors} autoConnect>
       <main className={styles.main}>
@@ -30,9 +30,18 @@ export default function Home() {
             <img src="https://starknetkit-website-f0ejy1m72-argentlabs.vercel.app/starknetKit-logo-white.svg" alt="starknetkit logo" />
             <span>Starknetkit</span>
           </div>
-          <button onClick={toggleModal} className={styles.connectbtn}>
-            Connect
-          </button>
+          {
+            isConnected ? (
+              <button className={styles.connectbtn} onDoubleClick={disconnect}>
+                {address.slice(0, 5)}...{address.slice(60, 66)}
+              </button>
+            ) : 
+            (
+              <button onClick={toggleModal} className={styles.connectbtn}>
+                Connect
+              </button>
+            )
+          }
           {isModalOpen && (
             <Connect isModalOpen={isModalOpen} toggleModal={toggleModal} />
           )}

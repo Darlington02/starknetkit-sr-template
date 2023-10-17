@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import styles from "./connect.module.css";
 import { useAccount, useConnectors } from "@starknet-react/core";
 
-function Connect({ isModalOpen, toggleModal }) {
+function Connect({ isModalOpen, toggleModal, setConnection }) {
   const { connect, connectors, disconnect } = useConnectors();
-  const { address, isConnected, account } = useAccount();
+  const { address, isConnected } = useAccount();
   
   useEffect(() => {
     const closeOnEscapeKey = (e) => {
@@ -43,23 +43,21 @@ function Connect({ isModalOpen, toggleModal }) {
             <img src="/close.svg" alt="close modal" />
           </button>
         </div>
+        
         <div className={styles.connectbtnContainer}>
-          {isConnected ? (
-            <button className={styles.connectbtn} onDoubleClick={disconnect}>
-              {address.slice(0, 5)}...{address.slice(60, 66)}
-            </button>
-          ) : (
-            connectors.map((connector) => (
-              <div key={connector.id} className={styles.connectorbtnlist}>
-                <button
-                  className={styles.connectbtn}
-                  onClick={() => connect(connector)}
-                >
-                  Connect {connector.id}
-                </button>
-              </div>
-            ))
-          )}
+            {
+              connectors.map((connector) => (
+                <div key={connector.id} className={styles.connectorbtnlist}>
+                  <button
+                    className={styles.connectbtn}
+                    onClick={() => connect(connector)}
+                    onChange={handleConnection}
+                  >
+                    Connect {connector.id}
+                  </button>
+                </div>
+              ))
+            }
         </div>
       </div>
     </div>
