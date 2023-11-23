@@ -3,12 +3,23 @@ import { useCallback, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
+import { isInArgentMobileAppBrowser } from "starknetkit/argentMobile"
 
 function Home() {
   const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
   const { address, isConnected } = useAccount();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const connectToMobile = async() => {
+    try {
+      const enabledValue = await sn.enable(window?.starknet_argentX)
+      callback(enabledValue ?? window?.starknet_argentX)
+    } catch (error) {
+      console.log(error)
+    }
+    return
+  }
 
   const toggleModal = useCallback(() => {
     setIsModalOpen((prev) => !prev);
@@ -47,15 +58,26 @@ function Home() {
           />
           <span>Starknetkit</span>
         </div>
-        {isConnected ? (
-          <button className={styles.connectbtn} onDoubleClick={disconnect}>
-            {address.slice(0, 5)}...{address.slice(60, 66)}
-          </button>
-        ) : (
-          <button onClick={toggleModal} className={styles.connectbtn}>
-            Connect
-          </button>
-        )}
+        {isConnected ? 
+          (
+            <button className={styles.connectbtn} onDoubleClick={disconnect}>
+              {address.slice(0, 5)}...{address.slice(60, 66)}
+            </button>
+          ) : 
+          (
+            isInArgentMobileAppBrowser() && window?.starknet_argentX ? 
+              (
+                <button onClick={connectToMobile} className={styles.connectbtn}>
+                Connect
+                </button> 
+              ) :
+              (
+                <button onClick={toggleModal} className={styles.connectbtn}>
+                  Connect
+                </button>
+              )
+          )
+        }
         {isModalOpen && (
           <div className={styles.modalOverlay}>
             <div className={styles.modal}>
@@ -71,19 +93,21 @@ function Home() {
               </div>
 
               <div className={styles.connectbtnContainer}>
-                {connectors.map((connector) => (
-                  <div key={connector.id} className={styles.connectorbtnlist}>
-                    <button
-                      className={styles.connectlinkbtn}
-                      onClick={() => {
-                        connect({ connector });
-                        toggleModal();
-                      }}
-                    >
-                      Connect {connector.id}
-                    </button>
-                  </div>
-                ))}
+                {
+                  connectors.map((connector) => (
+                    <div key={connector.id} className={styles.connectorbtnlist}>
+                      <button
+                        className={styles.connectlinkbtn}
+                        onClick={() => {
+                          connect({ connector });
+                          toggleModal();
+                        }}
+                      >
+                        Connect {connector.id}
+                      </button>
+                    </div>
+                  ))
+                }
               </div>
             </div>
           </div>
