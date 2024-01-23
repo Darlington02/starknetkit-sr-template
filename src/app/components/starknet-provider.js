@@ -8,7 +8,7 @@ import { goerli, mainnet } from "@starknet-react/chains"
 
 export default function StarknetProvider({ children }) {
   const chains = [goerli, mainnet]
-  const providers = [publicProvider()]
+  const provider = publicProvider()
   const connectors = [
     new InjectedConnector({ options: { id: "argentX", name: "Argent" } }),
     new InjectedConnector({ options: { id: "braavos", name: "Braavos" } }),
@@ -19,7 +19,7 @@ export default function StarknetProvider({ children }) {
   return (
     <StarknetConfig 
       chains={chains}
-      providers={providers}
+      provider={provider}
       connectors={connectors} 
       autoConnect
     >

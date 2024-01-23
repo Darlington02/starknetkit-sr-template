@@ -9,13 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@starknet-react/chains": "^0.1.0-next.0",
-    "@starknet-react/core": "^2.0.0-next.0",
+    "@starknet-react/chains": "^0.1.5",
+    "@starknet-react/core": "^2.2.3",
     "eslint": "8.49.0",
     "eslint-config-next": "13.5.1",
     "next": "13.5.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "starknetkit": "^1.0.21"
+    "starknetkit": "^1.1.3"
   }
 }

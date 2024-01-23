@@ -1,41 +1,22 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
+import { useStarknetkitConnectModal } from "starknetkit";
 
 function Home() {
   const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
   const { address, isConnected } = useAccount();
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleModal = useCallback(() => {
-    setIsModalOpen((prev) => !prev);
-  }, []);
+  const connectWallet = async() => {
+    const { starknetkitConnectModal } = useStarknetkitConnectModal({
+      connectors: connectors
+    })
 
-  useEffect(() => {
-    const closeOnEscapeKey = (e) => {
-      if (e.key === "Escape") {
-        toggleModal();
-      }
-    };
-    document.body.addEventListener("keydown", closeOnEscapeKey);
-    return () => {
-      document.body.removeEventListener("keydown", closeOnEscapeKey);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isModalOpen]);
+    const { connector } = await starknetkitConnectModal()
+    await connect({ connector })
+  }
 
   return (
     <main className={styles.main}>
@@ -52,41 +33,9 @@ function Home() {
             {address.slice(0, 5)}...{address.slice(60, 66)}
           </button>
         ) : (
-          <button onClick={toggleModal} className={styles.connectbtn}>
+          <button onClick={connectWallet} className={styles.connectbtn}>
             Connect
           </button>
-        )}
-        {isModalOpen && (
-          <div className={styles.modalOverlay}>
-            <div className={styles.modal}>
-              <div className={styles.modalTopContainer}>
-                <h2 className={styles.modalHeading}>Choose a wallet</h2>
-                <button
-                  title="Close modal"
-                  className={styles.closeBtn}
-                  onClick={toggleModal}
-                >
-                  <img src="/close.svg" alt="close modal" />
-                </button>
-              </div>
-
-              <div className={styles.connectbtnContainer}>
-                {connectors.map((connector) => (
-                  <div key={connector.id} className={styles.connectorbtnlist}>
-                    <button
-                      className={styles.connectlinkbtn}
-                      onClick={() => {
-                        connect({ connector });
-                        toggleModal();
-                      }}
-                    >
-                      Connect {connector.id}
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
         )}
       </div>
 
